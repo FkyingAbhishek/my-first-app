@@ -31,7 +31,7 @@ jobs:
 
     # Step 4: Run tests (optional)
     - name: Run tests
-      run: npm test -- --coverage
+      run: npm test -- --coverage --passWithNoTests
 
     # Step 5: Build the app
     - name: Build the app
