@@ -4,10 +4,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # or 'main' if you're using main as the default branch
+      - master  # Or 'main' if you're using main as the default branch
   pull_request:
     branches:
-      - master  # or 'main'
+      - master  # Or 'main'
 
 # Define the jobs for the pipeline
 jobs:
@@ -37,8 +37,7 @@ jobs:
     - name: Build the app
       run: npm run build
 
-    # Step 6: Deploy (for example, to GitHub Pages or any service)
-    # Example for deploying to GitHub Pages (adjust this step for your deployment method)
+    # Step 6: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
