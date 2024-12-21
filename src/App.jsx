@@ -1,4 +1,4 @@
- import React,{Component} from "react";
+import React,{Component} from "react";
 import { Navbar } from "./NavBar";
 import MainContent from "./MainContent";
 import ShoppingCart from "./ShoppingCart";

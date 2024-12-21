@@ -64,7 +64,7 @@ export default class MainContent extends Component{
                         </div>
                     </td>
                     <td>{cust.Name}</td>
-                    <td>{cust.DuesAmount==0?"No Dues":cust.DuesAmount}</td>
+                    <td>{cust.DuesAmount===0?"No Dues":cust.DuesAmount}</td>
                     <td>{this.getPhonetoRender(cust.Phone)}</td>  
                     <td>{cust.address.city}</td>
                 </tr>
