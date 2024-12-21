@@ -18,7 +18,7 @@ jobs:
 
     - name: Set up Git configuration
       run: |
-        git config user.name "Abhishek"
+        git config user.name "FkyingAbhishek"
         git config user.email "i.abhishekkumarchoudhary.online@gmail.com"
 
     - name: Set up Node.js
