@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+# Trigger the workflow on push to any branch or pull request
+on:
+  push:
+    branches:
+      - master  # or 'main' if you're using main as the default branch
+  pull_request:
+    branches:
+      - master  # or 'main'
+
+# Define the jobs for the pipeline
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Define the runner environment (Ubuntu in this case)
+
+    steps:
+    # Step 1: Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Node.js environment (use the version required for your project)
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Replace with your Node.js version
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run tests (optional)
+    - name: Run tests
+      run: npm test -- --coverage
+
+    # Step 5: Build the app
+    - name: Build the app
+      run: npm run build
+
+    # Step 6: Deploy (for example, to GitHub Pages or any service)
+    # Example for deploying to GitHub Pages (adjust this step for your deployment method)
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.1.0
+      with:
+        branch: gh-pages  # The branch to deploy to (you may need to create this branch)
+        folder: build     # The folder containing your build (e.g., 'build' for React)
