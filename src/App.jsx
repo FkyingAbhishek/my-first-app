@@ -13,7 +13,7 @@ Component
         <React.Fragment>
             <Navbar /> 
             {/* <ShoppingCart /> */}
-            {/* <MainContent /> */}
+            <MainContent />
             <GridAssignment  /> 
         </React.Fragment> 
         );
