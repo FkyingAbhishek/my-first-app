@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # or 'main' if you're using main as the default branch
+      - master  # or 'main' if you're using 'main' as the default branch
   pull_request:
     branches:
       - master  # or 'main'
@@ -11,6 +11,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # Define the runner environment (Ubuntu in this case)
+
+    permissions:
+      contents: write    # Allow write access to repository contents
+      pages: write       # Allow write access to GitHub Pages
+      id-token: write    # Allow the GitHub Actions bot to generate an ID token
 
     steps:
     - name: Checkout code
@@ -32,17 +37,20 @@ jobs:
     - name: Run tests (optional)
       run: npm test -- --coverage --passWithNoTests
 
-
     - name: Build the app
       run: npm run build
 
-    - name: Create gh-pages branch
+    # Create gh-pages branch and commit changes
+    - name: Create gh-pages branch and commit changes
       run: |
-        git checkout --orphan gh-pages
-        git rm -rf .
-        git commit --allow-empty -m "Initial commit on gh-pages"
-        git push origin gh-pages
+        git checkout --orphan gh-pages   # Create a new orphan branch
+        git rm -rf .                     # Remove all files (not affecting master branch)
+        cp -r build/* .                  # Copy the build files to the root
+        git add .                        # Add all new files
+        git commit -m "Deploy to GitHub Pages"
+        git push --force origin gh-pages  # Force push to the gh-pages branch
 
+    # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
