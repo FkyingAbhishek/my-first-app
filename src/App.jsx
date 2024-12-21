@@ -12,7 +12,7 @@ Component
         return ( 
         <React.Fragment>
             <Navbar /> 
-            {/* <ShoppingCart /> */}
+            <ShoppingCart />
             <MainContent />
             <GridAssignment  /> 
         </React.Fragment> 
