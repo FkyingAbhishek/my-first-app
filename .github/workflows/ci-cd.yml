@@ -3,10 +3,14 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # or 'main' if you're using 'main' as the default branch
+      - development  # Trigger build on the development branch
+      - uat          # Trigger build on the UAT branch
+      - master       # Trigger build on the master branch
   pull_request:
     branches:
-      - master  # or 'main'
+      - development  # Trigger on pull request to the development branch
+      - uat          # Trigger on pull request to the UAT branch
+      - master       # Trigger on pull request to the master branch
 
 jobs:
   build:
@@ -40,18 +44,39 @@ jobs:
     - name: Build the app
       run: npm run build
 
-    # Create gh-pages branch and commit changes
-    - name: Create gh-pages branch and commit changes
+    # Deploy to different environments based on branch
+    - name: Deploy to GitHub Pages (Development or UAT or Production)
       run: |
-        git checkout --orphan gh-pages   # Create a new orphan branch
-        git rm -rf .                     # Remove all files (not affecting master branch)
-        cp -r build/* .                  # Copy the build files to the root
-        git add .                        # Add all new files
-        git commit -m "Deploy to GitHub Pages"
-        git push --force origin gh-pages  # Force push to the gh-pages branch
+        if [[ "${{ github.ref }}" == "refs/heads/development" ]]; then
+          echo "Deploying to Development GitHub Pages"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp -r build/* .
+          git add .
+          git commit -m "Deploy to Development"
+          git push --force origin gh-pages
+        elif [[ "${{ github.ref }}" == "refs/heads/uat" ]]; then
+          echo "Deploying to UAT GitHub Pages"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp -r build/* .
+          git add .
+          git commit -m "Deploy to UAT"
+          git push --force origin gh-pages
+        elif [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+          echo "Deploying to Production GitHub Pages"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp -r build/* .
+          git add .
+          git commit -m "Deploy to Production"
+          git push --force origin gh-pages
+        else
+          echo "No deployment action for this branch"
+        fi
 
-    # Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
+    # Deploy to GitHub Pages (Final step)
+    - name: Deploy to GitHub Pages (Final step)
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
