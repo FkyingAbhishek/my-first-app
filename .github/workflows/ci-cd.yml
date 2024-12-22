@@ -75,7 +75,7 @@ jobs:
           echo "No deployment action for this branch"
         fi
 
-    # Deploy to GitHub Pages (Unified)
+    # Deploy to GitHub Pages (Final step)
     - name: Deploy to GitHub Pages (Final step)
       uses: JamesIves/github-pages-deploy-action@v4
       with:
