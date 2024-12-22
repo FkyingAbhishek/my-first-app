@@ -28,7 +28,8 @@ export default class ShoppingCart extends Component {
                                 productName={prod.productName} 
                                 productPrice={prod.productPrice} 
                                 quantity={prod.quantity} 
-                            />
+                            > <button className="btn btn-primary">Buy Now</button>
+                            </Product> 
                         );
                     })}
                 </div>

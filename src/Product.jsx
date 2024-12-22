@@ -9,6 +9,7 @@ export default class Product extends Component{
                     <h5 className="pt-5 border-top">{this.props.productName}</h5>
                     <div>${this.props.productPrice}</div>
                     </div> 
+                    <div className="card-footer text-right">{this.props.children}</div>
                 </div>
             </div>
         );
