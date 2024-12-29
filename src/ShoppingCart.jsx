@@ -28,6 +28,8 @@ export default class ShoppingCart extends Component {
                                 productName={prod.productName} 
                                 productPrice={prod.productPrice} 
                                 quantity={prod.quantity} 
+                                onIncriment={this.handleIncrement}
+                                onDecrement={this.handleDecrement}
                             > <button className="btn btn-primary">Buy Now</button>
                             </Product> 
                         );
@@ -36,4 +38,7 @@ export default class ShoppingCart extends Component {
             </div>
         );
     }
+
+    handleIncrement(){}
+    handleDecrement(){}
 }
